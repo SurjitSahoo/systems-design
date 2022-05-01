@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+  node-server:
+    image: systems/node:latest
+    container_name: systems-node
+    restart: always
+    ports:
+      - 3000:3000
+    networks:
+      - network1
+
+  proxy-server:
+    image: systems/proxy:latest
+    container_name: systems-proxy
+    restart: always
+    ports:
+      - 3001:3001
+    networks:
+      - network1
+
+networks:
+  network1:
+    driver: bridge
+    ipam:
+      driver: default
