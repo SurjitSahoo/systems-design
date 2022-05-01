@@ -1,0 +1,39 @@
+version: '3.1'
+
+services:
+  node-server1:
+    image: systems/loadbal-server:latest
+    container_name: systems-loadbal-server1
+    restart: always
+    environment:
+      - PORT=3000
+    ports:
+      - 3000:3000
+    networks:
+      - network1
+
+  node-server2:
+    image: systems/loadbal-server:latest
+    container_name: systems-loadbal-server2
+    restart: always
+    environment:
+      - PORT=3001
+    ports:
+      - 3001:3001
+    networks:
+      - network1
+
+  load-balencer:
+    image: systems/loadbalencer:latest
+    container_name: systems-loadbalencer
+    restart: always
+    ports:
+      - 4000:4000
+    networks:
+      - network1
+
+networks:
+  network1:
+    driver: bridge
+    ipam:
+      driver: default
